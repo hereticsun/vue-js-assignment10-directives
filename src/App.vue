@@ -5,14 +5,38 @@
                 <h1>Directives Exercise</h1>
                 <!-- Exercise -->
                 <!-- Build a Custom Directive which works like v-on (Listen for Events) -->
-
+                <button v-myOn:click="clicked" class="btn btn-primary">Click Me</button>
+                <hr />
+                <div style="width: 100px; height: 100px; background-color: lightgreen;" v-myOn:mouseleave="mouseLeave" v-myOn:mouseenter="mouseEnter"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {}
+    export default {
+        directives: {
+            myOn: {
+                bind(el, binding) {
+                    const type= binding.arg;
+                    const fn = binding.value;
+                    el.addEventListener(type, fn);
+                }
+            }
+        },
+        methods: {
+            clicked() {
+                alert('Alert fired');
+            },
+            mouseEnter() {
+                console.log('Mouse entered');
+            },
+            mouseLeave() {
+                console.log('Mouse left');
+            }
+
+        }
+    }
 </script>
 
 <style>
